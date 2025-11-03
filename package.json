@@ -1,0 +1,58 @@
+{
+	"name": "@cerios/cypress-tables",
+	"version": "0.1.0",
+	"author": "Pavlo Chigishev & Ronald Veth - Cerios",
+	"description": "Easy HTML Tables handler for Cypress",
+	"license": "MIT",
+	"keywords": [
+		"cypress",
+		"html",
+		"table",
+		"testing"
+	],
+	"bugs": {
+		"url": "https://github.com/CeriosTesting/cypress-tables/issues"
+	},
+	"homepage": "https://github.com/CeriosTesting/cypress-tables#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/CeriosTesting/cypress-tables.git"
+	},
+	"scripts": {
+		"build": "tsup",
+		"check-exports": "attw --pack .",
+		"changeset": "npx changeset",
+		"changeset:version": "changeset version && npm i",
+		"changeset:publish": "changeset publish",
+		"compile": "tsc --noEmit",
+		"format": "prettier --write . --cache --ignore-path=.prettierignore",
+		"serve": "serve demo-html -l 3000",
+		"test": "cypress run",
+		"test:open": "cypress open",
+		"update-all-packages": "npx npm-check-updates -u && npm i"
+	},
+	"devDependencies": {
+		"@arethetypeswrong/cli": "^0.18.2",
+		"@changesets/cli": "^2.29.7",
+		"@types/node": "^24.10.0",
+		"cypress": "^15.5.0",
+		"prettier": "^3.6.2",
+		"serve": "^14.2.5",
+		"tsup": "^8.5.0",
+		"typescript": "^5.9.3"
+	},
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"type": "commonjs",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": "./dist/index.mjs",
+			"default": "./dist/index.js"
+		}
+	}
+}

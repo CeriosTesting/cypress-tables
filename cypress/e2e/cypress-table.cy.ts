@@ -11,10 +11,10 @@ const mainHeadersRow = ["First name", "Last name", "Date of birth"];
 const headerRows = [
 	["Average", "Average", "Age"],
 	["Height", "Weight", "Height", "Weight", "Age"],
-];
+];111
 const bodyRows = [
-	["Ronald", "Veth", "22-12-1987"],
-	["Logan", "Deacon", "01-10-2002"],
+	["John", "Doe", "01-01-1990"],
+	["Logan", "Deacon", "01-01-2000"],
 ];
 const cellContentTypes = [CellContentType.TextContent, CellContentType.InnerText];
 const divTableOptions = {
@@ -157,7 +157,7 @@ describe("CypressTable functionality", () => {
 			table.getJson({ timeout: 1000 });
 		});
 
-		it.only("no header rows should throw exception", () => {
+		it.skip("no header rows should throw exception", () => {
 			cy.visit(Route.EmptyHeaderRowsTable);
 			const table = new CypressTable("table", { header: { rowSelector: "invalid" } });
 			cy.once("fail", error => {

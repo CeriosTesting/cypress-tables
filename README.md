@@ -24,8 +24,8 @@ describe("User table", () => {
 
 		table.getMainHeaderRow().should("deep.equal", ["First name", "Last name", "Date of birth"]);
 		table.getJson().should("deep.equal", [
-			{ "First name": "Ronald", "Last name": "Veth", "Date of birth": "22-12-1987" },
-			{ "First name": "Logan", "Last name": "Deacon", "Date of birth": "01-10-2002" },
+			{ "First name": "John", "Last name": "Doe", "Date of birth": "01-01-1990" },
+			{ "First name": "Logan", "Last name": "Deacon", "Date of birth": "01-01-200" },
 		]);
 	});
 });

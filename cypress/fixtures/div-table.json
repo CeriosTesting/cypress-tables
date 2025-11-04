@@ -1,7 +1,7 @@
 [
     {
-        "First name": "Ronald",
-        "Last name": "Veth",
+        "First name": "John",
+        "Last name": "Doe",
         "Specialty": "Test Automation"
     },
     {
@@ -10,8 +10,8 @@
         "Specialty": "Make special together"
     },
     {
-        "First name": "John",
-        "Last name": "Doe",
+        "First name": "Anne",
+        "Last name": "Banne",
         "Specialty": "Anonymity"
     }
 ]

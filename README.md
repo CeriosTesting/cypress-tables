@@ -1,6 +1,6 @@
 # Cypress Tables
 
-Type-safe helpers for querying HTML tables in Cypress tests. The utilities mirror the Playwright-based implementation from this repository, but expose Cypress-friendly APIs that integrate with the command queue while keeping the same parsing behaviour (header resolution, rowspan/colspan handling, JSON conversion, etc.).
+Type-safe helpers for querying HTML tables in Cypress tests. The utilities expose Cypress-friendly APIs that integrate with the command queue while keeping the same parsing behaviour (header resolution, rowspan/colspan handling, JSON conversion, etc.).
 
 ## Installation
 
@@ -58,7 +58,7 @@ const table = new CypressTable(".divTable", {
 - `getAllBodyCellLocatorsByHeaderName(header, options?)` – returns an array of chainables for an entire column.
 - `waitForHeaderRows(options?)` / `waitForBodyRows(options?)` – declarative waiting with row/cell count assertions.
 
-See the Playwright README in the repository root for full method descriptions; the Cypress version keeps method names and option shapes aligned.
+See the Cypress README in the repository root for full method descriptions.
 
 ## Development & Testing
 
@@ -70,4 +70,4 @@ npm run test         # cypress run --headless
 npm run test:open    # interactive Cypress runner
 ```
 
-The `demo-html` directory contains the same fixtures that ship with the Playwright tests. Run `npm run serve` in one terminal and `npm run test` or `npm run test:open` in another to execute the suite.
+The `demo-html` directory contains the same fixtures that ship with the Cypress tests. Run `npm run serve` in one terminal and `npm run test` or `npm run test:open` in another to execute the suite.

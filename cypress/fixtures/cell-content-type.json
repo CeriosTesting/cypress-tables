@@ -1,0 +1,34 @@
+[
+    {
+        "description": "CellContentType.TextContent returns the raw text content of the cell",
+        "cellContentType": "textContent",
+        "expected": [
+            {
+                "id": "1",
+                "withoutStyling": "transform uppercase",
+                "withStyling": "transform uppercase"
+            },
+            {
+                "id": "2",
+                "withoutStyling": "TRANSFORM LOWERCASE",
+                "withStyling": "TRANSFORM LOWERCASE"
+            }
+        ]
+    },
+    {
+        "description": "CellContentType.InnerText returns the rendered text content of the cell",
+        "cellContentType": "innerText",
+        "expected": [
+            {
+                "id": "1",
+                "withoutStyling": "transform uppercase",
+                "withStyling": "TRANSFORM UPPERCASE"
+            },
+            {
+                "id": "2",
+                "withoutStyling": "TRANSFORM LOWERCASE",
+                "withStyling": "transform lowercase"
+            }
+        ]
+    }
+]

@@ -33,7 +33,9 @@ export class CypressTable {
 	 * @param options - Optional selectors and configuration tweaks for headers and body rows.
 	 */
 	constructor(
-		private readonly tableLocator: string | Cypress.Chainable<JQuery<HTMLTableElement>>,
+		private readonly tableLocator:
+			| string
+			| Cypress.Chainable<JQuery<HTMLTableElement>>,
 		private readonly options?: {
 			/** Overrides for header selection and indexing behaviour. */
 			header?: {
@@ -97,7 +99,9 @@ export class CypressTable {
 		headerIndex: number,
 		options?: LoadOptions
 	): Cypress.Chainable<JQuery<HTMLElement>> {
-		return this.load(options).then(() => this.getBodyCellLocatorInternal(rowIndex, headerIndex, options));
+		return this.load(options).then(() =>
+			this.getBodyCellLocatorInternal(rowIndex, headerIndex, options)
+		);
 	}
 
 	/**
@@ -144,11 +148,17 @@ export class CypressTable {
 				}
 
 				if (matches) {
-					return this.getBodyCellLocatorInternal(rowIndex, targetHeaderIndex, options);
+					return this.getBodyCellLocatorInternal(
+						rowIndex,
+						targetHeaderIndex,
+						options
+					);
 				}
 			}
 
-			throw new Error(`No row found matching conditions: ${JSON.stringify(conditions)}`);
+			throw new Error(
+				`No row found matching conditions: ${JSON.stringify(conditions)}`
+			);
 		});
 	}
 
@@ -170,7 +180,9 @@ export class CypressTable {
 				throw new Error(`Header "${header}" not found.`);
 			}
 
-			return this.rows.map((_, rowIndex) => this.getBodyCellLocatorInternal(rowIndex, headerIndex, options));
+			return this.rows.map((_, rowIndex) =>
+				this.getBodyCellLocatorInternal(rowIndex, headerIndex, options)
+			);
 		});
 	}
 
@@ -186,7 +198,9 @@ export class CypressTable {
 		options?: LoadOptions
 	): Cypress.Chainable<Cypress.Chainable<JQuery<HTMLElement>>[]> {
 		return this.load(options).then(() => {
-			return this.rows.map((_, rowIndex) => this.getBodyCellLocatorInternal(rowIndex, headerIndex, options));
+			return this.rows.map((_, rowIndex) =>
+				this.getBodyCellLocatorInternal(rowIndex, headerIndex, options)
+			);
 		});
 	}
 
@@ -206,7 +220,8 @@ export class CypressTable {
 					suffix: options?.headerRowOptions?.colspan?.suffix ?? true,
 				},
 				duplicateSuffix: options?.headerRowOptions?.duplicateSuffix ?? true,
-				emptyCellReplacement: options?.headerRowOptions?.emptyCellReplacement ?? true,
+				emptyCellReplacement:
+					options?.headerRowOptions?.emptyCellReplacement ?? true,
 			},
 		}).then(() => {
 			const headers = this.mainHeaderRow();
@@ -226,7 +241,9 @@ export class CypressTable {
 	 * @param options - Optional wait assertions such as explicit timeouts or expected counts.
 	 * @returns Chainable resolving to the matched header rows.
 	 */
-	waitForHeaderRows(options?: WaitForTableRowsOptions): Cypress.Chainable<JQuery<HTMLElement>> {
+	waitForHeaderRows(
+		options?: WaitForTableRowsOptions
+	): Cypress.Chainable<JQuery<HTMLElement>> {
 		const timeout = options?.timeout ?? Cypress.config("defaultCommandTimeout");
 		const waitOptions: WaitForTableRowsOptions = { ...options, timeout };
 		return TableWait.waitForRows(
@@ -244,7 +261,9 @@ export class CypressTable {
 	 * @param options - Optional wait assertions such as explicit timeouts or expected counts.
 	 * @returns Chainable resolving to the matched body rows.
 	 */
-	waitForBodyRows(options?: WaitForTableRowsOptions): Cypress.Chainable<JQuery<HTMLElement>> {
+	waitForBodyRows(
+		options?: WaitForTableRowsOptions
+	): Cypress.Chainable<JQuery<HTMLElement>> {
 		const timeout = options?.timeout ?? Cypress.config("defaultCommandTimeout");
 		const waitOptions: WaitForTableRowsOptions = { ...options, timeout };
 		return TableWait.waitForRows(
@@ -275,7 +294,11 @@ export class CypressTable {
 		)
 			.then($headerRows => {
 				const headerElements = Array.from($headerRows, row => row as Element);
-				this.headers = TableHeader.getRows(headerElements, this.headerColumnSelector, options?.headerRowOptions);
+				this.headers = TableHeader.getRows(
+					headerElements,
+					this.headerColumnSelector,
+					options?.headerRowOptions
+				);
 			})
 			.then(() =>
 				TableWait.waitForRows(
@@ -288,7 +311,11 @@ export class CypressTable {
 			)
 			.then($bodyRows => {
 				const bodyElements = Array.from($bodyRows, row => row as Element);
-				this.rows = TableBody.getRows(bodyElements, this.bodyColumnSelector, options?.bodyRowOptions);
+				this.rows = TableBody.getRows(
+					bodyElements,
+					this.bodyColumnSelector,
+					options?.bodyRowOptions
+				);
 			});
 	}
 
@@ -333,7 +360,9 @@ export class CypressTable {
 	 * @param timeout - Optional timeout override for locating the table.
 	 * @returns Chainable targeting the table element.
 	 */
-	private resolveTable(timeout?: number): Cypress.Chainable<JQuery<HTMLTableElement>> {
+	private resolveTable(
+		timeout?: number
+	): Cypress.Chainable<JQuery<HTMLTableElement>> {
 		if (typeof this.tableLocator === "string") {
 			if (timeout !== undefined) {
 				return cy.get(this.tableLocator, { timeout });

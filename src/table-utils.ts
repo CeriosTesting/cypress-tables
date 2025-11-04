@@ -11,9 +11,14 @@ export abstract class TableUtils {
 	 * @param cellContentType - Determines whether `textContent` or `innerText` is used.
 	 * @returns The trimmed textual content of the element.
 	 */
-	static getCellContent(element: Element, cellContentType: CellContentType): string {
+	static getCellContent(
+		element: Element,
+		cellContentType: CellContentType
+	): string {
 		const content =
-			cellContentType === CellContentType.InnerText ? (element as HTMLElement).innerText : element.textContent;
+			cellContentType === CellContentType.InnerText
+				? (element as HTMLElement).innerText
+				: element.textContent;
 		return content?.trim() ?? "";
 	}
 
@@ -23,7 +28,10 @@ export abstract class TableUtils {
 	 * @param element - The element that might define span attributes.
 	 * @returns A normalized span definition where missing or invalid values default to `1`.
 	 */
-	static parseSpanAttributes(element: Element): { rowspan: number; colspan: number } {
+	static parseSpanAttributes(element: Element): {
+		rowspan: number;
+		colspan: number;
+	} {
 		const rowspan = parseInt(element.getAttribute("rowspan") ?? "1", 10);
 		const colspan = parseInt(element.getAttribute("colspan") ?? "1", 10);
 		return {

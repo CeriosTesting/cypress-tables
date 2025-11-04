@@ -56,9 +56,10 @@ export abstract class TableWait {
 			const rows = Array.from($rows, row => row as Element);
 
 			if (options?.row?.amount !== undefined) {
-				expect(rows.length, `Expected ${options.row.amount} ${rowKind} rows, but found ${rows.length}`).to.eq(
-					options.row.amount
-				);
+				expect(
+					rows.length,
+					`Expected ${options.row.amount} ${rowKind} rows, but found ${rows.length}`
+				).to.eq(options.row.amount);
 			} else {
 				expect(rows.length, `No ${rowKind} rows found`).to.be.greaterThan(0);
 			}
@@ -70,7 +71,9 @@ export abstract class TableWait {
 
 			if (options?.row?.cell?.totalCount !== undefined) {
 				const expected = options.row.cell.totalCount;
-				const rowsWithMatchingCells = rows.filter(row => row.querySelectorAll(cellSelector).length === expected);
+				const rowsWithMatchingCells = rows.filter(
+					row => row.querySelectorAll(cellSelector).length === expected
+				);
 				expect(
 					rowsWithMatchingCells.length,
 					`Expected amount of ${expected} ${rowKind} cells for row not found`
@@ -81,7 +84,9 @@ export abstract class TableWait {
 				const expected = options.row.cell.contentCount;
 				const rowsWithMatchingContent = rows.filter(row => {
 					const cells = Array.from(row.querySelectorAll(cellSelector));
-					const contentCells = cells.filter(cell => (cell.textContent ?? "").trim().length > 0);
+					const contentCells = cells.filter(
+						cell => (cell.textContent ?? "").trim().length > 0
+					);
 					return contentCells.length === expected;
 				});
 				expect(
@@ -89,7 +94,10 @@ export abstract class TableWait {
 					`Expected amount of ${expected} ${rowKind} cells with content for row not found`
 				).to.be.greaterThan(0);
 			} else {
-				expect(rowsWithContent.length, `No ${rowKind} cells with content found`).to.be.greaterThan(0);
+				expect(
+					rowsWithContent.length,
+					`No ${rowKind} cells with content found`
+				).to.be.greaterThan(0);
 			}
 
 			return $rows;

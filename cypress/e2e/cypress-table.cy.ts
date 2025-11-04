@@ -11,12 +11,15 @@ const mainHeadersRow = ["First name", "Last name", "Date of birth"];
 const headerRows = [
 	["Average", "Average", "Age"],
 	["Height", "Weight", "Height", "Weight", "Age"],
-];111
+];
 const bodyRows = [
 	["John", "Doe", "01-01-1990"],
 	["Logan", "Deacon", "01-01-2000"],
 ];
-const cellContentTypes = [CellContentType.TextContent, CellContentType.InnerText];
+const cellContentTypes = [
+	CellContentType.TextContent,
+	CellContentType.InnerText,
+];
 const divTableOptions = {
 	header: {
 		rowSelector: ".divTableHeading > .divTableRow",
@@ -39,7 +42,9 @@ describe("CypressTable functionality", () => {
 		it("getHeaderRows should return header rows", () => {
 			cy.visit(Route.RowspanHeaderTable);
 			const table = new CypressTable("table");
-			table.getHeaderRows({ headerRowOptions: { colspan: { enabled: false } } }).should("deep.equal", headerRows);
+			table
+				.getHeaderRows({ headerRowOptions: { colspan: { enabled: false } } })
+				.should("deep.equal", headerRows);
 		});
 	});
 
@@ -102,7 +107,10 @@ describe("CypressTable functionality", () => {
 		cy.visit(Route.ButtonTable);
 		const table = new CypressTable("table");
 		table.getBodyRows().should("have.length", 3);
-		table.getBodyCellLocatorByRowConditions({ Rownumber: "Row 2" }, "Delete?").find("input[type='button']").click();
+		table
+			.getBodyCellLocatorByRowConditions({ Rownumber: "Row 2" }, "Delete?")
+			.find("input[type='button']")
+			.click();
 		table.getBodyRows().should("have.length", 2);
 	});
 
@@ -159,7 +167,9 @@ describe("CypressTable functionality", () => {
 
 		it.skip("no header rows should throw exception", () => {
 			cy.visit(Route.EmptyHeaderRowsTable);
-			const table = new CypressTable("table", { header: { rowSelector: "invalid" } });
+			const table = new CypressTable("table", {
+				header: { rowSelector: "invalid" },
+			});
 			cy.once("fail", error => {
 				expect(error.message).to.include("No header rows found");
 				return false;
@@ -169,7 +179,9 @@ describe("CypressTable functionality", () => {
 
 		it("no header row cells should throw exception", () => {
 			cy.visit(Route.EmptyHeaderRowsTable);
-			const table = new CypressTable("table", { header: { columnSelector: "invalid" } });
+			const table = new CypressTable("table", {
+				header: { columnSelector: "invalid" },
+			});
 			cy.once("fail", error => {
 				expect(error.message).to.include("No header cells with content found");
 				return false;
@@ -179,7 +191,9 @@ describe("CypressTable functionality", () => {
 
 		it.skip("no body rows should throw exception", () => {
 			cy.visit(Route.EmptyBodyRowsTable);
-			const table = new CypressTable("table", { row: { rowSelector: "invalid" } });
+			const table = new CypressTable("table", {
+				row: { rowSelector: "invalid" },
+			});
 			cy.once("fail", error => {
 				expect(error.message).to.include("No body rows found");
 				return false;
@@ -189,7 +203,9 @@ describe("CypressTable functionality", () => {
 
 		it("no body row cells should throw exception", () => {
 			cy.visit(Route.EmptyBodyRowsTable);
-			const table = new CypressTable("table", { row: { columnSelector: "invalid" } });
+			const table = new CypressTable("table", {
+				row: { columnSelector: "invalid" },
+			});
 			cy.once("fail", error => {
 				expect(error.message).to.include("No body cells with content found");
 				return false;

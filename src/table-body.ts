@@ -59,7 +59,14 @@ export abstract class TableBody {
 		const columnElements = Array.from(row.querySelectorAll(columnSelector));
 
 		columnElements.forEach((column, columnIndex) => {
-			this.processColumn(column, columnIndex, columns, rowIndex, spannedCells, cellContentType);
+			this.processColumn(
+				column,
+				columnIndex,
+				columns,
+				rowIndex,
+				spannedCells,
+				cellContentType
+			);
 		});
 
 		this.applySpannedCells(spannedCells, rowIndex, columns);
@@ -93,7 +100,13 @@ export abstract class TableBody {
 		}
 
 		if (rowspan > 1) {
-			this.storeSpannedCells(rowIndex, colIndex, rowspan, content, spannedCells);
+			this.storeSpannedCells(
+				rowIndex,
+				colIndex,
+				rowspan,
+				content,
+				spannedCells
+			);
 		}
 	}
 
@@ -128,7 +141,11 @@ export abstract class TableBody {
 	 * @param rowIndex - Index of the row currently being finalized.
 	 * @param columns - Output array to merge row span values into.
 	 */
-	private static applySpannedCells(spannedCells: Record<number, Cell[]>, rowIndex: number, columns: Cell[]): void {
+	private static applySpannedCells(
+		spannedCells: Record<number, Cell[]>,
+		rowIndex: number,
+		columns: Cell[]
+	): void {
 		const spans = spannedCells[rowIndex];
 		if (!spans) {
 			return;

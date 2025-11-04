@@ -39,19 +39,21 @@ describe("TableHeader", () => {
 	});
 
 	describe("options duplicate suffix", () => {
-		tableHeaderCases["duplicate-suffix"].forEach(({ options, expectedHeaders }) => {
-			it(`duplicateSuffix=${options.duplicateSuffix}`, () => {
-				cy.visit(Route.RowspanHeaderTable);
+		tableHeaderCases["duplicate-suffix"].forEach(
+			({ options, expectedHeaders }) => {
+				it(`duplicateSuffix=${options.duplicateSuffix}`, () => {
+					cy.visit(Route.RowspanHeaderTable);
 
-				cy.get("table>thead>tr").then($rows => {
-					const headers = TableHeader.getRows(
-						Array.from($rows, el => el),
-						"th",
-						{ ...options, colspan: { enabled: true } }
-					);
-					expect(headers).to.deep.equal(expectedHeaders);
+					cy.get("table>thead>tr").then($rows => {
+						const headers = TableHeader.getRows(
+							Array.from($rows, el => el),
+							"th",
+							{ ...options, colspan: { enabled: true } }
+						);
+						expect(headers).to.deep.equal(expectedHeaders);
+					});
 				});
-			});
-		});
+			}
+		);
 	});
 });

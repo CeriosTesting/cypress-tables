@@ -37,13 +37,22 @@ export abstract class TableHeader {
 	 * @param options - Optional configuration controlling text extraction and suffix behaviour.
 	 * @returns Normalized header rows with span information resolved.
 	 */
-	static getRows(headerRows: Element[], columnSelector: string, options?: HeaderRowOptions): HeaderRow[] {
+	static getRows(
+		headerRows: Element[],
+		columnSelector: string,
+		options?: HeaderRowOptions
+	): HeaderRow[] {
 		const resolvedOptions = this.resolveOptions(options);
 		const headerRowValues: HeaderRow[] = [];
 		const rowSpans = new Map<number, string>();
 
 		for (const headerRow of headerRows) {
-			const rowValues = this.extractRow(headerRow, columnSelector, rowSpans, resolvedOptions);
+			const rowValues = this.extractRow(
+				headerRow,
+				columnSelector,
+				rowSpans,
+				resolvedOptions
+			);
 			headerRowValues.push(rowValues);
 		}
 
@@ -59,7 +68,9 @@ export abstract class TableHeader {
 	 * @param options - The optional user-supplied header parsing configuration.
 	 * @returns A resolved configuration with defaults filled in.
 	 */
-	private static resolveOptions(options?: HeaderRowOptions): RequiredHeaderRowOptions {
+	private static resolveOptions(
+		options?: HeaderRowOptions
+	): RequiredHeaderRowOptions {
 		return {
 			cellContentType: options?.cellContentType ?? CellContentType.InnerText,
 			emptyCellReplacement: options?.emptyCellReplacement ?? false,
@@ -91,7 +102,13 @@ export abstract class TableHeader {
 		let columnIndex = 0;
 
 		for (const cell of cells) {
-			columnIndex = this.processCell(cell, headerRow, rowSpans, columnIndex, options);
+			columnIndex = this.processCell(
+				cell,
+				headerRow,
+				rowSpans,
+				columnIndex,
+				options
+			);
 		}
 
 		this.appendRemainingRowSpans(headerRow, rowSpans, columnIndex);
@@ -142,7 +159,11 @@ export abstract class TableHeader {
 	 * @param text - Base header text for the column.
 	 * @param colspan - Number of columns spanned by the current cell.
 	 */
-	private static handleColspan(headerRow: HeaderRow, text: string, colspan: number): void {
+	private static handleColspan(
+		headerRow: HeaderRow,
+		text: string,
+		colspan: number
+	): void {
 		for (let i = 1; i < colspan; i++) {
 			headerRow.push(`${text}__C${i}`);
 		}
@@ -198,7 +219,10 @@ export abstract class TableHeader {
 	 * @param headerRows - All parsed header rows to mutate.
 	 * @param options - Resolved colspan options.
 	 */
-	private static applyColspanOptions(headerRows: HeaderRow[], options: RequiredHeaderRowOptions): void {
+	private static applyColspanOptions(
+		headerRows: HeaderRow[],
+		options: RequiredHeaderRowOptions
+	): void {
 		if (!options.colspan.enabled) {
 			for (const row of headerRows) {
 				for (let i = 0; i < row.length; i++) {
@@ -227,7 +251,10 @@ export abstract class TableHeader {
 	 * @param headerRows - The parsed header rows to update.
 	 * @param options - Resolved header options.
 	 */
-	private static applyDuplicateSuffix(headerRows: HeaderRow[], options: RequiredHeaderRowOptions): void {
+	private static applyDuplicateSuffix(
+		headerRows: HeaderRow[],
+		options: RequiredHeaderRowOptions
+	): void {
 		if (!options.duplicateSuffix) {
 			return;
 		}

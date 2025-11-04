@@ -22,10 +22,20 @@ describe("User table", () => {
 
 		const table = new CypressTable("table");
 
-		table.getMainHeaderRow().should("deep.equal", ["First name", "Last name", "Date of birth"]);
+		table
+			.getMainHeaderRow()
+			.should("deep.equal", ["First name", "Last name", "Date of birth"]);
 		table.getJson().should("deep.equal", [
-			{ "First name": "John", "Last name": "Doe", "Date of birth": "01-01-1990" },
-			{ "First name": "Logan", "Last name": "Deacon", "Date of birth": "01-01-200" },
+			{
+				"First name": "John",
+				"Last name": "Doe",
+				"Date of birth": "01-01-1990",
+			},
+			{
+				"First name": "Logan",
+				"Last name": "Deacon",
+				"Date of birth": "01-01-200",
+			},
 		]);
 	});
 });

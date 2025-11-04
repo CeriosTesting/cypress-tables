@@ -1,17 +1,17 @@
 [
-    {
-        "First name": "John",
-        "Last name": "Doe",
-        "Specialty": "Test Automation"
-    },
-    {
-        "First name": "Logan",
-        "Last name": "Deacon",
-        "Specialty": "Make special together"
-    },
-    {
-        "First name": "Anne",
-        "Last name": "Banne",
-        "Specialty": "Anonymity"
-    }
+	{
+		"First name": "John",
+		"Last name": "Doe",
+		"Specialty": "Test Automation"
+	},
+	{
+		"First name": "Logan",
+		"Last name": "Deacon",
+		"Specialty": "Make special together"
+	},
+	{
+		"First name": "Anne",
+		"Last name": "Banne",
+		"Specialty": "Anonymity"
+	}
 ]

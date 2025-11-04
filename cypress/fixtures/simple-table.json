@@ -1,12 +1,12 @@
 [
-    {
-        "First name": "John",
-        "Last name": "Doe",
-        "Date of birth": "01-01-1990"
-    },
-    {
-        "First name": "Logan",
-        "Last name": "Deacon",
-        "Date of birth": "01-01-2000"
-    }
+	{
+		"First name": "John",
+		"Last name": "Doe",
+		"Date of birth": "01-01-1990"
+	},
+	{
+		"First name": "Logan",
+		"Last name": "Deacon",
+		"Date of birth": "01-01-2000"
+	}
 ]

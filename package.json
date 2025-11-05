@@ -29,7 +29,8 @@
 		"serve": "serve demo-html -l 3000",
 		"test": "cypress run",
 		"test:open": "cypress open",
-		"update-all-packages": "npx npm-check-updates -u && npm i"
+		"update-all-packages": "npx npm-check-updates -u && npm i",
+		"verify": "npm run format && npm run compile && npm run test"
 	},
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.18.2",

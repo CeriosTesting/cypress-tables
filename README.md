@@ -1,6 +1,9 @@
-# Cypress Tables
+# Cypress Tables | By Cerios
+
+## Introduction
 
 Type-safe helpers for querying HTML tables in Cypress tests. The utilities expose Cypress-friendly APIs that integrate with the command queue while keeping the same parsing behaviour (header resolution, rowspan/colspan handling, JSON conversion, etc.).
+This package simplifies the process by parsing HTML tables into JSON objects based on headers and rows, making it easier to assert table data in your tests.
 
 ## Installation
 
@@ -34,7 +37,7 @@ describe("User table", () => {
 			{
 				"First name": "Anne",
 				"Last name": "Banne",
-				"Date of birth": "01-01-200",
+				"Date of birth": "01-01-2000",
 			},
 		]);
 	});

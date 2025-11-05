@@ -180,9 +180,11 @@ export class CypressTable {
 				throw new Error(`Header "${header}" not found.`);
 			}
 
-			return this.rows.map((_, rowIndex) =>
+			const locators = this.rows.map((_, rowIndex) =>
 				this.getBodyCellLocatorInternal(rowIndex, headerIndex, options)
 			);
+
+			return cy.wrap(locators, { log: false });
 		});
 	}
 
@@ -198,9 +200,11 @@ export class CypressTable {
 		options?: LoadOptions
 	): Cypress.Chainable<Cypress.Chainable<JQuery<HTMLElement>>[]> {
 		return this.load(options).then(() => {
-			return this.rows.map((_, rowIndex) =>
+			const locators = this.rows.map((_, rowIndex) =>
 				this.getBodyCellLocatorInternal(rowIndex, headerIndex, options)
 			);
+
+			return cy.wrap(locators, { log: false });
 		});
 	}
 

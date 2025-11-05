@@ -6,37 +6,21 @@ import expectedRowspanRowTable from "cypress/fixtures/rowspan-row-table.json";
 import expectedDynamicTable from "cypress/fixtures/dynamic-table.json";
 import expectedDivTable from "cypress/fixtures/div-table.json";
 import expectedCellContentType from "cypress/fixtures/cell-content-type.json";
+import expectedTableData from "cypress/fixtures/expected-table-data.json";
 
-const mainHeadersRow = ["First name", "Last name", "Date of birth"];
-const headerRows = [
-	["Average", "Average", "Age"],
-	["Height", "Weight", "Height", "Weight", "Age"],
-];
-const bodyRows = [
-	["John", "Doe", "01-01-1990"],
-	["Logan", "Deacon", "01-01-2000"],
-];
 const cellContentTypes = [
 	CellContentType.TextContent,
 	CellContentType.InnerText,
 ];
-const divTableOptions = {
-	header: {
-		rowSelector: ".divTableHeading > .divTableRow",
-		columnSelector: ".divTableHead",
-	},
-	row: {
-		rowSelector: ".divTableBody > .divTableRow",
-		columnSelector: ".divTableCell",
-	},
-};
 
 describe("CypressTable functionality", () => {
 	describe("getHeaderRow functionality", () => {
 		it("getMainHeaderRow should return headers used for table", () => {
 			cy.visit(Route.SimpleTable);
 			const table = new CypressTable("table");
-			table.getMainHeaderRow().should("deep.equal", mainHeadersRow);
+			table
+				.getMainHeaderRow()
+				.should("deep.equal", expectedTableData.mainHeadersRow);
 		});
 
 		it("getHeaderRows should return header rows", () => {
@@ -44,7 +28,7 @@ describe("CypressTable functionality", () => {
 			const table = new CypressTable("table");
 			table
 				.getHeaderRows({ headerRowOptions: { colspan: { enabled: false } } })
-				.should("deep.equal", headerRows);
+				.should("deep.equal", expectedTableData.headerRows);
 		});
 	});
 
@@ -52,7 +36,7 @@ describe("CypressTable functionality", () => {
 		it("getBodyRows should return body rows", () => {
 			cy.visit(Route.SimpleTable);
 			const table = new CypressTable("table");
-			table.getBodyRows().should("deep.equal", bodyRows);
+			table.getBodyRows().should("deep.equal", expectedTableData.bodyRows);
 		});
 
 		it("getBodyRows should only return strings", () => {
@@ -114,7 +98,7 @@ describe("CypressTable functionality", () => {
 		table.getBodyRows().should("have.length", 2);
 	});
 
-	it.skip("getAllBodyCellLocatorsByHeaderName should return locators", () => {
+	it("getAllBodyCellLocatorsByHeaderName should return locators", () => {
 		cy.visit(Route.ButtonTable);
 		const table = new CypressTable("table");
 		table.getAllBodyCellLocatorsByHeaderName("Delete?").then(locators => {
@@ -122,11 +106,13 @@ describe("CypressTable functionality", () => {
 			locators.reverse().forEach(locator => {
 				locator.find("input[type='button']").click();
 			});
-			expect(locators).to.have.length(0);
+		});
+		cy.get("#DeleteRowTable").then(() => {
+			cy.get("tbody").should("not.be.visible");
 		});
 	});
 
-	it.skip("getAllBodyCellLocatorsByHeaderIndex returns locators", () => {
+	it("getAllBodyCellLocatorsByHeaderIndex returns locators", () => {
 		cy.visit(Route.ButtonTable);
 		const table = new CypressTable("table");
 		table.getAllBodyCellLocatorsByHeaderIndex(1).then(locators => {
@@ -134,7 +120,9 @@ describe("CypressTable functionality", () => {
 			locators.reverse().forEach(locator => {
 				locator.find("input[type='button']").click();
 			});
-			expect(locators).to.have.length(0);
+		});
+		cy.get("#DeleteRowTable").then(() => {
+			cy.get("tbody").should("not.be.visible");
 		});
 	});
 
@@ -165,7 +153,7 @@ describe("CypressTable functionality", () => {
 			table.getJson({ timeout: 1000 });
 		});
 
-		it.skip("no header rows should throw exception", () => {
+		it("no header rows should throw exception", () => {
 			cy.visit(Route.EmptyHeaderRowsTable);
 			const table = new CypressTable("table", {
 				header: { rowSelector: "invalid" },
@@ -189,7 +177,7 @@ describe("CypressTable functionality", () => {
 			table.getJson({ timeout: 1000 });
 		});
 
-		it.skip("no body rows should throw exception", () => {
+		it("no body rows should throw exception", () => {
 			cy.visit(Route.EmptyBodyRowsTable);
 			const table = new CypressTable("table", {
 				row: { rowSelector: "invalid" },
@@ -216,7 +204,10 @@ describe("CypressTable functionality", () => {
 
 	it("should support div based table structure", () => {
 		cy.visit(Route.DivTable);
-		const table = new CypressTable(".divTable", divTableOptions);
+		const table = new CypressTable(
+			".divTable",
+			expectedTableData.divTableOptions
+		);
 		table.getJson().should("deep.equal", expectedDivTable);
 	});
 });

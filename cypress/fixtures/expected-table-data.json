@@ -1,0 +1,21 @@
+{
+	"mainHeadersRow": ["First name", "Last name", "Date of birth"],
+	"headerRows": [
+		["Average", "Average", "Age"],
+		["Height", "Weight", "Height", "Weight", "Age"]
+	],
+	"bodyRows": [
+		["John", "Doe", "01-01-1990"],
+		["Logan", "Deacon", "01-01-2000"]
+	],
+	"divTableOptions": {
+		"header": {
+			"rowSelector": ".divTableHeading > .divTableRow",
+			"columnSelector": ".divTableHead"
+		},
+		"row": {
+			"rowSelector": ".divTableBody > .divTableRow",
+			"columnSelector": ".divTableCell"
+		}
+	}
+}

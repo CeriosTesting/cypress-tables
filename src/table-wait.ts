@@ -48,7 +48,9 @@ export abstract class TableWait {
 		options?: WaitForTableRowsOptions
 	): Cypress.Chainable<JQuery<HTMLElement>> {
 		const hasRetryTimeout = !!options?.timeout && options.timeout > 0;
-		const queryTimeout = options?.timeout ?? 0;
+		const findRows = ($table: JQuery<HTMLTableElement>): JQuery<HTMLElement> =>
+			$table.find(rowSelector) as JQuery<HTMLElement>;
+
 		/**
 		 * Executes the structural assertions on the located rows.
 		 */
@@ -103,14 +105,19 @@ export abstract class TableWait {
 			return $rows;
 		};
 
-		const query = table.find(rowSelector, { timeout: queryTimeout });
-
 		if (hasRetryTimeout) {
-			return query.should($rows => {
-				evaluate($rows);
-			});
+			let lastRows: JQuery<HTMLElement> | undefined;
+			return table
+				.should($table => {
+					lastRows = findRows($table);
+					evaluate(lastRows);
+				})
+				.then(() => lastRows as JQuery<HTMLElement>);
 		}
 
-		return query.then($rows => evaluate($rows));
+		return table.then($table => {
+			const rows = findRows($table);
+			return evaluate(rows);
+		});
 	}
 }

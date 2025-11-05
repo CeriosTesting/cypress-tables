@@ -87,6 +87,28 @@ describe("CypressTable functionality", () => {
 		table.getBodyCellLocator(2, 1).should("contain.html", "button");
 	});
 
+	it("getBodyCellLocator should throw Error when incorrect row index provided", () => {
+		cy.visit(Route.ButtonTable);
+		const table = new CypressTable("table");
+		cy.once("fail", error => {
+			expect(error.message).to.include("Row index 5 is out of bounds.");
+			return false;
+		});
+		table.getBodyCellLocator(5, 0);
+	});
+
+	it("getBodyCellLocator should throw Error when incorrect header index provided", () => {
+		cy.visit(Route.ButtonTable);
+		const table = new CypressTable("table");
+		cy.once("fail", error => {
+			expect(error.message).to.include(
+				"Header index -5 must be zero or greater."
+			);
+			return false;
+		});
+		table.getBodyCellLocator(1, -5);
+	});
+
 	it("getBodyCellLocatorByRowConditions should return locator", () => {
 		cy.visit(Route.ButtonTable);
 		const table = new CypressTable("table");
@@ -96,6 +118,43 @@ describe("CypressTable functionality", () => {
 			.find("input[type='button']")
 			.click();
 		table.getBodyRows().should("have.length", 2);
+	});
+
+	it("getBodyCellLocatorByRowConditions should throw exception when invalid target header provided", () => {
+		cy.visit(Route.ButtonTable);
+		const table = new CypressTable("table");
+		cy.once("fail", error => {
+			expect(error.message).to.include('Target header "Delete" not found.');
+			return false;
+		});
+		table.getBodyCellLocatorByRowConditions({ Rownumber: "Row 3" }, "Delete");
+	});
+
+	it("getBodyCellLocatorByRowConditions should throw exception when conditional cell value provided in conditions is missing", () => {
+		cy.visit(Route.ButtonTable);
+		const table = new CypressTable("table");
+		cy.once("fail", error => {
+			expect(error.message).to.include(
+				'Conditional cell value "MissingHeader" not found.'
+			);
+			return false;
+		});
+		table.getBodyCellLocatorByRowConditions(
+			{ MissingHeader: "value" },
+			"Delete?"
+		);
+	});
+
+	it("getBodyCellLocatorByRowConditions should throw exception when invalid conditions provided", () => {
+		cy.visit(Route.ButtonTable);
+		const table = new CypressTable("table");
+		cy.once("fail", error => {
+			expect(error.message).to.include(
+				'No row found matching conditions: {"Rownumber":"Row"}'
+			);
+			return false;
+		});
+		table.getBodyCellLocatorByRowConditions({ Rownumber: "Row" }, "Delete?");
 	});
 
 	it("getAllBodyCellLocatorsByHeaderName should return locators", () => {
@@ -110,6 +169,16 @@ describe("CypressTable functionality", () => {
 		cy.get("#DeleteRowTable").then(() => {
 			cy.get("tbody").should("not.be.visible");
 		});
+	});
+
+	it("getAllBodyCellLocatorsByHeaderName should raise exception when incorrect header name provided", () => {
+		cy.visit(Route.ButtonTable);
+		const table = new CypressTable("table");
+		cy.once("fail", error => {
+			expect(error.message).to.include('Header "Delete" not found.');
+			return false;
+		});
+		table.getAllBodyCellLocatorsByHeaderName("Delete");
 	});
 
 	it("getAllBodyCellLocatorsByHeaderIndex returns locators", () => {

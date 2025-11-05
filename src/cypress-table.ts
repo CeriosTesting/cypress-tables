@@ -122,7 +122,7 @@ export class CypressTable {
 			const headers = this.mainHeaderRow();
 			const targetHeaderIndex = headers.indexOf(targetHeader);
 			if (targetHeaderIndex === -1) {
-				throw new Error(`Header "${targetHeader}" not found.`);
+				throw new Error(`Target header "${targetHeader}" not found.`);
 			}
 
 			for (let rowIndex = 0; rowIndex < this.rows.length; rowIndex++) {
@@ -132,7 +132,9 @@ export class CypressTable {
 				for (const [conditionHeader, value] of Object.entries(conditions)) {
 					const headerIndex = headers.indexOf(conditionHeader);
 					if (headerIndex === -1) {
-						throw new Error(`Header "${conditionHeader}" not found.`);
+						throw new Error(
+							`Conditional cell value "${conditionHeader}" not found.`
+						);
 					}
 
 					const cellValue = row[headerIndex] ?? "";

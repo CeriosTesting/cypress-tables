@@ -18,7 +18,7 @@ jobs:
     - name: Verify Cypress
       run: npx cypress verify
     - name: Run Cypress Tests
-      run: npm run test
+      run: npm run serve && npm run test
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:

@@ -1,9 +1,14 @@
 name: Tests for Cypress Tables
 on:
   push:
-    branches: [ main, master ]
+    branches: 
+        - 'feature/**'
+        - 'chore/**'
+        - 'fix/**'
+        - develop
+        - main
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, develop ]
 jobs:
   test:
     timeout-minutes: 60

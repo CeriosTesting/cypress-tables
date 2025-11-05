@@ -1,0 +1,27 @@
+name: Tests for Cypress Tables
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+    - name: Install Dependencies
+      run: npm ci
+    - name: Verify Cypress
+      run: npx cypress verify
+    - name: Run Cypress Tests
+      run: npm run test
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: cypress/reports
+        path: cypress/reports/
+        retention-days: 30
